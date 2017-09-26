@@ -4,6 +4,13 @@ Expects html, removes redundant css within style tags, and returns html.
 
 This module currently exports an async function because one of its dependencies is expecting an asynchronous operation (reading from file system). This module does not actually use the file system, so this should not be necessary. This could be resolved in the future by patching `css-razor` to not be async if the file system is not accessed.
 
+This library is largely based on [css-razor](https://github.com/tscanlin/css-razor). For alternative libraries that remove redundant CSS rules, also consider:
+- https://github.com/FullHuman/purgecss
+- https://github.com/purifycss/purifycss
+- https://github.com/giakki/uncss
+- https://github.com/patrickhulce/nukecss
+- https://github.com/jakubpawlowicz/clean-css
+
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 ## Install
