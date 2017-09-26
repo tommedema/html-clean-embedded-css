@@ -1,15 +1,25 @@
+const pify = require('pify')
+const stylesFromHtml = require('styles-from-html')
+const cssRazor = pify(require('css-razor').default)
+const iReplace = require('i-replace')
+
 /**
- * Example description of a function
- * @function someFunction
- * @param {string} param1 - A first param
+ * Expects html, removes redundant css within style tags, and returns html. The output HTML
+ * document should render the same as the input, but with less css rules present.
+ * This is primarily useful if you reduce the number of requests to your web application by
+ * embedding your css into a single HTML document instead of a separate stylesheet document.
+ * @function cleanEmbeddedCss
+ * @param {string} html - The HTML document to parse style tags from.
  *
  * @example
- * console.log('this is example code')
+ * const cleanCssHtml = cleanEmbeddedCss(redundantCssHtml)
  *
- * @returns {string} an example return type
+ * @returns {string} html - the input HTML document but with embedded style tags having
+ * redundant css rules removed.
  */
-module.exports = function someFunction (param1) {
-  // to implement
-
-  return param1
+module.exports = async function cleanEmbeddedCss (html) {
+  const segmented = stylesFromHtml(html)
+  const cleanCss = (await cssRazor({ htmlRaw: segmented.html, cssRaw: segmented.css })).css
+  const cleanHtml = iReplace(segmented.html, '</head', `<style>${cleanCss}</style>$1`)
+  return cleanHtml
 }

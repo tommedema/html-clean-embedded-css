@@ -1,13 +1,13 @@
 {
-  "name": "lib-template",
-  "version": "0.1.0",
-  "description": "An opinionated document template to quickly start a new node library.",
-  "homepage": "https://github.com/tommedema/lib-template",
+  "name": "html-clean-embedded-css",
+  "version": "0.1.1",
+  "description": "Expects html, removes redundant css within style tags, and returns html.",
+  "homepage": "https://github.com/tommedema/html-clean-embedded-css",
   "bugs": {
-    "url": "https://github.com/tommedema/lib-template/issues",
+    "url": "https://github.com/tommedema/html-clean-embedded-css/issues",
     "email": "tommedema@gmail.com"
   },
-  "repository": "git@github.com:tommedema/lib-template.git",
+  "repository": "git@github.com:tommedema/html-clean-embedded-css.git",
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/standard/bin/cmd.js && ./node_modules/mocha/bin/mocha",
@@ -16,8 +16,17 @@
     "docs": "./node_modules/documentation/bin/documentation.js lint src/** && ./node_modules/documentation/bin/documentation.js build src/** -f md >> README.md"
   },
   "keywords": [
-    "keyword1",
-    "keyword2"
+    "html",
+    "css",
+    "embed",
+    "embedded",
+    "style",
+    "clean",
+    "purge",
+    "uncss",
+    "redundant",
+    "minify",
+    "optimize"
   ],
   "author": {
     "name": "Tom Medema",
@@ -29,5 +38,11 @@
     "mocha": "^3.5.3",
     "should": "^13.1.0",
     "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "css-razor": "^2.4.3",
+    "i-replace": "^1.0.2",
+    "pify": "^3.0.0",
+    "styles-from-html": "^1.0.1"
   }
 }
