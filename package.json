@@ -1,0 +1,33 @@
+{
+  "name": "lib-template",
+  "version": "0.1.0",
+  "description": "An opinionated document template to quickly start a new node library.",
+  "homepage": "https://github.com/tommedema/lib-template",
+  "bugs": {
+    "url": "https://github.com/tommedema/lib-template/issues",
+    "email": "tommedema@gmail.com"
+  },
+  "repository": "git@github.com:tommedema/lib-template.git",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./node_modules/standard/bin/cmd.js && ./node_modules/mocha/bin/mocha",
+    "standard": "./node_modules/standard/bin/cmd.js",
+    "standard fix": "./node_modules/standard/bin/cmd.js --fix",
+    "docs": "./node_modules/documentation/bin/documentation.js lint src/** && ./node_modules/documentation/bin/documentation.js build src/** -f md >> README.md"
+  },
+  "keywords": [
+    "keyword1",
+    "keyword2"
+  ],
+  "author": {
+    "name": "Tom Medema",
+    "email": "tommedema@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "documentation": "^5.3.2",
+    "mocha": "^3.5.3",
+    "should": "^13.1.0",
+    "standard": "^10.0.3"
+  }
+}
