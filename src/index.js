@@ -7,12 +7,19 @@ const iReplace = require('i-replace')
  * Expects html, removes redundant css within style tags, and returns html. The output HTML
  * document should render the same as the input, but with less css rules present.
  * This is primarily useful if you reduce the number of requests to your web application by
- * embedding your css into a single HTML document instead of a separate stylesheet document.
+ * embedding your css into a single HTML document instead of a separate stylesheet document,
+ * and if you intend to optimize the CSS in that document after embedding it into the HTML document.
  * @function cleanEmbeddedCss
  * @param {string} html - The HTML document to parse style tags from.
  *
  * @example
- * const cleanCssHtml = cleanEmbeddedCss(redundantCssHtml)
+ * (async () {
+ *  const redundantCssHtml = `<html><head><style>.one { color: green } .two { color: red }</style>
+ *  </head><body><p class="one">nobody uses class two</p></body></html>`
+ *  const cleanCssHtml = await cleanEmbeddedCss(redundantCssHtml)
+ *  console.log(cleanCssHtml === `<html><head><style>.one { color: green }</style></head>
+ *  <body><p class="one">nobody uses class two</p></body></html>`) // true
+ * })()
  *
  * @returns {string} html - the input HTML document but with embedded style tags having
  * redundant css rules removed.
