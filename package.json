@@ -1,6 +1,6 @@
 {
   "name": "html-clean-embedded-css",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Expects html, removes redundant css within style tags, and returns html.",
   "homepage": "https://github.com/tommedema/html-clean-embedded-css",
   "bugs": {
