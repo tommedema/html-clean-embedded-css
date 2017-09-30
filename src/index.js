@@ -13,12 +13,19 @@ const iReplace = require('i-replace')
  * @param {string} html - The HTML document to parse style tags from.
  *
  * @example
- * (async () {
- *  const redundantCssHtml = `<html><head><style>.one { color: green } .two { color: red }</style>
- *  </head><body><p class="one">nobody uses class two</p></body></html>`
- *  const cleanCssHtml = await cleanEmbeddedCss(redundantCssHtml)
- *  console.log(cleanCssHtml === `<html><head><style>.one { color: green }</style></head>
- *  <body><p class="one">nobody uses class two</p></body></html>`) // true
+ * const assert = require('assert')
+ * const cleanEmbeddedCss = require('html-clean-embedded-css')
+ *
+ * const redundantCssHtml = `<html><head><style>.one { color: green } .two { color: red }</style>
+ * </head><body><p class="one">nobody uses class two</p></body></html>`
+ *
+ * const cleanCssHtml = `<html><head><style>.one { color: green }</style>
+ * </head><body><p class="one">nobody uses class two</p></body></html>`
+ *
+ * ;(async () => {
+ *   const html = await cleanEmbeddedCss(redundantCssHtml)
+ *   assert.equal(html, cleanCssHtml)
+ *   console.log('html with redundant embedded css cleaned to %s', html)
  * })()
  *
  * @returns {string} html - the input HTML document but with embedded style tags having
@@ -27,6 +34,6 @@ const iReplace = require('i-replace')
 module.exports = async function cleanEmbeddedCss (html) {
   const segmented = stylesFromHtml(html)
   const cleanCss = (await cssRazor({ htmlRaw: segmented.html, cssRaw: segmented.css })).css
-  const cleanHtml = iReplace(segmented.html, '</head', `<style>${cleanCss}</style>$1`)
+  const cleanHtml = iReplace(segmented.html, '[\\n\\s]*</head', `<style>${cleanCss}</style>$1`)
   return cleanHtml
 }
