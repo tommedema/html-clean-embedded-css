@@ -1,6 +1,6 @@
-const pify = require('pify')
+const { promisify } = require('util')
 const stylesFromHtml = require('styles-from-html')
-const cssRazor = pify(require('css-razor').default)
+const cssRazor = promisify(require('css-razor').default)
 const iReplace = require('i-replace')
 
 const headNeedle = '</head'

@@ -42,7 +42,6 @@
   "dependencies": {
     "css-razor": "^2.4.3",
     "i-replace": "^1.0.2",
-    "pify": "^3.0.0",
     "styles-from-html": "^1.0.1"
   }
 }
