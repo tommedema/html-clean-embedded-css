@@ -65,4 +65,10 @@ describe('html-clean-embedded-css', () => {
     const cleaned = await clean(input)
     cleaned.should.equal(output)
   })
+
+  it('should return html as-is if no style tags are present', async () => {
+    const input = getHtml('no-style')
+    const cleaned = await clean(input)
+    cleaned.should.equal(input)
+  })
 })

@@ -41,6 +41,7 @@ const headNeedle = '</head'
 module.exports = async function cleanEmbeddedCss (html) {
   if (html.indexOf(headNeedle) === -1) return html // preserve html if replacement is impossible
   const segmented = stylesFromHtml(html)
+  if (!segmented.css) return html // preserve html if no css is present
   const cleanCss = (await cssRazor({ htmlRaw: segmented.html, cssRaw: segmented.css })).css
   const cleanHtml = iReplace(segmented.html, '</head', `<style>${cleanCss}</style>$1`)
   return cleanHtml
