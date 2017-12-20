@@ -1,5 +1,6 @@
 /* global describe, it */
 require('should')
+require('loud-rejection/register')
 
 const clean = require('../src')
 const fs = require('fs')
@@ -64,6 +65,12 @@ describe('html-clean-embedded-css', () => {
     const output = getOutHtml('whitespace-pretty')
     const cleaned = await clean(input)
     cleaned.should.equal(output)
+  })
+
+  it('should return html as-is if style tags do not contain styles', async () => {
+    const input = getHtml('style-tag-no-styles')
+    const cleaned = await clean(input)
+    cleaned.should.equal(input)
   })
 
   it('should return html as-is if no style tags are present', async () => {

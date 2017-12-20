@@ -1,6 +1,5 @@
-const { promisify } = require('util')
 const stylesFromHtml = require('styles-from-html')
-const cssRazor = promisify(require('css-razor').default)
+const cssRazor = require('css-razor').default
 const iReplace = require('i-replace')
 
 const headNeedle = '</head'
@@ -42,7 +41,16 @@ module.exports = async function cleanEmbeddedCss (html) {
   if (html.indexOf(headNeedle) === -1) return html // preserve html if replacement is impossible
   const segmented = stylesFromHtml(html)
   if (!segmented.css) return html // preserve html if no css is present
-  const cleanCss = (await cssRazor({ htmlRaw: segmented.html, cssRaw: segmented.css })).css
-  const cleanHtml = iReplace(segmented.html, '</head', `<style>${cleanCss}</style>$1`)
-  return cleanHtml
+  try {
+    const cleanCss = (await cssRazor({ htmlRaw: segmented.html, cssRaw: segmented.css })).css
+    const cleanHtml = iReplace(segmented.html, '</head', `<style>${cleanCss}</style>$1`)
+    return cleanHtml
+  } catch (err) {
+    // cleaning is done on a best-effort basis
+    // if there are syntax errors we can silently ignore these
+    if (err.name === 'CssSyntaxError') {
+      return html
+    }
+    throw err
+  }
 }
